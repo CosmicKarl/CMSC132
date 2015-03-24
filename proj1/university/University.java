@@ -2,6 +2,14 @@ package university;
 
 import java.util.ArrayList;
 
+/**
+ * @author Jacob Knapo 
+ * 		   CMSC 132 Herman 
+ * 	       2/13/2015 
+ *         Proj 1 Univesity simulates students and the classes that they take.
+ *         Each student can only have up to five classes
+ *
+ */
 public class University {
 
 	private ArrayList<UniClass> classes; // classes the uni has to offer;
@@ -22,7 +30,7 @@ public class University {
 	 * else do nuthing
 	 */
 	public University addCourse(String department, int number, int numSeats) {
-		// cheacks if has class
+		// checks if has class
 		if (this.classes.indexOf(new UniClass(department, number, numSeats)) == -1) {
 			classes.add(new UniClass(department, number, numSeats));
 			return this;
@@ -35,7 +43,6 @@ public class University {
 	 * This function cancels a course by first check if the class passed exists.
 	 * Then updates all the students in the class as if they dropped a class.
 	 * Then removes all the students belonging to that class
-	 * 
 	 * @param department
 	 * @param number
 	 * @return boolean
@@ -55,17 +62,20 @@ public class University {
 		}
 	}
 
+	/**
+	 * Counts nums classes at university offered
+	 * @return num classes at University
+	 */
 	public int numCourses() {
 		return classes.size();
 	}
 	
 	/**
-	 * 
+	 * Adds a student to a class
 	 * @param department
 	 * @param number
 	 * @param name
 	 * @return true if succecfull
-	 * Adds a student to a class
 	 */
 	public boolean add(String department, int number, String name) {
 		Student tempstu = new Student(name, 0); // This is a student
@@ -95,6 +105,12 @@ public class University {
 		return false;
 	}
 
+	/**
+	 * Counts num students in a course
+	 * @param department
+	 * @param number
+	 * @return num students in a course
+	 */
 	public int numStudentsInCourse(String department, int number) {
 		UniClass chk = new UniClass(department, number, 0);
 		if (classes.indexOf(chk) > -1) {
@@ -104,6 +120,14 @@ public class University {
 		}
 	}
 
+	/**
+	 * Determines if student is in a course
+	 * @param department
+	 * @param number
+	 * @param name
+	 * @return True: if student is in course
+	 * 		   False: otherwise
+	 */
 	public boolean isRegisteredForCourse(String department, int number,
 			String name) {
 		Student tempstu = new Student(name, 0); // This is a student
@@ -114,10 +138,10 @@ public class University {
 	}
 
 	/**
-	 * 
+	 * Determines how many courses a student is registered for
 	 * @param name
-	 * @return 0 if student is not registered in system or how many classes a
-	 *         student is taking
+	 * @return 0 if student is not registered in system.
+	 * Otherwise returns how many classes a student is taking
 	 */
 	public int numCoursesRegisteredFor(String name) {
 		Student tempstu = new Student(name, 0);
@@ -129,11 +153,12 @@ public class University {
 	}
 
 	/**
-	 * 
+	 * Student drops a course
 	 * @param department
 	 * @param number
 	 * @param name
-	 * @return true if student was able to drop false otherwise
+	 * @return True: If student was able to drop 
+	 * 	       False: otherwise
 	 */
 	public boolean drop(String department, int number, String name) {
 		Student tempstu = new Student(name, 0); // This is a student
@@ -153,9 +178,11 @@ public class University {
 		return false;
 	}
 	/**
-	 * 
+	 * Cancels all class a student is registared for and drop them 
+	 * from university
 	 * @param name
-	 * @return true if student exist false otherwise
+	 * @return True: If student does exist  
+	 * 		   False: If student doesnt exist
 	 */
 	public boolean cancelRegistration(String name) {
 		Student tempstu = new Student(name, 0);

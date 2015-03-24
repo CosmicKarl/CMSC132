@@ -3,8 +3,12 @@ package university;
 import java.util.ArrayList;
 /**
  * 
- * @author Jacob knapo
- * This class is the structure for one course. One course keeps tracts of each student that is in that class
+ * @author Jacob Knapo 
+ * 		   CMSC 132 Herman 
+ * 	       2/13/2015 
+ *         Proj 1
+ *         Class that represents one course. Each course has a list of students
+ * 
  *
  */
 public class UniClass {
@@ -48,13 +52,15 @@ public class UniClass {
 		return seatnumber;
 	}
 
+	/**
+	 * @return num students in course
+	 */
 	public int sizeOfClass() {
 		return students.size();
 	}
 
 	/**
 	 * Adds one student to a class
-	 * 
 	 * @param stu
 	 */
 	public void addStudent(Student stu) {
@@ -62,8 +68,7 @@ public class UniClass {
 	}
 
 	/**
-	 * removes a student from class
-	 * 
+	 * removes a student from class 
 	 * @param stu
 	 */
 	public void removeStudent(Student stu) {
@@ -73,7 +78,8 @@ public class UniClass {
 	/**
 	 * 
 	 * @param stu
-	 * @return true if has student false otherwise
+	 * @return True: if course has student 
+	 * 		   False: otherwise
 	 */
 	public boolean hasStudent(Student stu) {
 		return students.indexOf(stu) > -1;

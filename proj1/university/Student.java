@@ -1,7 +1,10 @@
 package university;
 /**
  * 
- * @author Jacob Knapo
+ * @author Jacob Knapo 
+ * 		   CMSC 132 Herman 
+ * 	       2/13/2015 
+ *         Proj 1
  * This is represents one student. Each student keeps tract of its name and how many classes they are taking
  *
  */
@@ -47,6 +50,9 @@ public class Student {
 		this.numclasses--;
 	}
 
+	/**
+	 * Equals method that checks if name is equal
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
