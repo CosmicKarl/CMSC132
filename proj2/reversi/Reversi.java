@@ -1,12 +1,24 @@
 package reversi;
-//REsrsi houses all the functions to apply the rule and mechanics of the game
+
 import java.util.NoSuchElementException;
 import java.lang.IllegalArgumentException;
+
+/**
+ * 
+ * @author Jacob Knapo 
+ * 		   CMSC 132 Herman 
+ * 	       2/24/2015 
+ *         Proj 2 Reversi Board. This houses all the rules for Reversi the game
+ *
+ */
 
 public class Reversi {
 	Piece[][] board;
 	Piece turn;
 
+	/**
+	 * Constructor
+	 */
 	public Reversi() {
 		board = new Piece[8][8];
 		for (int i = 0; i < board.length; i++) {
@@ -60,7 +72,11 @@ public class Reversi {
 		return board[row][col];
 	}
 	
-	//Counnts number of peices on board
+	/**
+	 * Count the Number of pieces on the board
+	 * @param type
+	 * @return # of pieces on the board
+	 */
 	public int count(Piece type) {
 		int cnt = 0;
 		for (int i = 0; i < board.length; i++) {
@@ -73,7 +89,11 @@ public class Reversi {
 		return cnt;
 	}
 	
-	//Resetes the board to a defualt state
+	/**
+	 * Resets board to new game position
+	 * @param type
+	 * @throws IllegalArgumentException
+	 */
 	public void reset(Piece type) throws IllegalArgumentException {
 		if (type == Piece.NONE) {
 			throw new IllegalArgumentException();
@@ -88,7 +108,10 @@ public class Reversi {
 
 	}
 	
-	//Prints out a ascii board of the game
+	/**
+	 * toString method that prints out row and columns
+	 * pieces on board
+	 */
 	public String toString() {
 		String s = new String();
 		for (int i = 7; i >= 0; i--) {
@@ -106,10 +129,14 @@ public class Reversi {
 		return s + "  0 1 2 3 4 5 6 7\n";
 	}
 
-	/*
-	 * This puts the next piece to look based on the integer direction Ex: since
+	/**
+	 * This puts the next piece to look based on the dir. Ex: since
 	 * 2 is directly above piece we just new to keep increase the row value to
 	 * look at the next piece above it.
+	 * @param row
+	 * @param col
+	 * @param dir
+	 * @return a Pos object holding the col and row of next peice in dir
 	 */
 	private Pos dirAcc(int row, int col, int dir) {
 		switch (dir) {
@@ -230,11 +257,16 @@ public class Reversi {
 
 	}
 
-	// This inner class allow me to return a two integers when a position and dir of a
-	// trap piece that is found
+	/**
+	 *  This inner class allow me to return a two integers when a position and dir of a
+	 *   trap piece that is found
+	 * @author Jacob Knapo
+     *	This inner class return two integers when a position(col=x & row=y) and dir of a
+	 *   trap piece that is found. (0,0) is top right.
+	 */
 	class Pos {
 		private int x, y, dir;
-
+		
 		Pos(int x, int y, int dir) {
 			this.x = x;
 			this.y = y;
@@ -258,9 +290,10 @@ public class Reversi {
 		private int getDir() {
 			return dir;
 		}
-
+		
+		//Determines if pos is off of board
 		private boolean isTrap() {
-			if (this.getX() < 0 & this.getY() < 0) {
+			if (this.getX() < 0 || this.getY() < 0) {
 				return false;
 			}
 			return true;
@@ -275,6 +308,14 @@ public class Reversi {
 
 	}
 
+	/**
+	 * Determines if placing type onto the board will cause a flip
+	 * @param row
+	 * @param col
+	 * @param type
+	 * @return True: if peice at row,col will cause a flip
+	 * 		   False: otherwise	
+	 */
 	public boolean validMove(int row, int col, Piece type) {
 		// If inside board and not a NONE piece.
 		if (((row <= 7) && (row >= 0)) && ((col <= 7) && (col >= 0))
@@ -295,23 +336,35 @@ public class Reversi {
 	}
 
 	/**
-	 * 
+	 * For every piece in the dir towards the trap completing piece
+	 * flip to other color 
 	 * @param current
 	 * @param trap
-	 *            For every peice in the dir twards the trap completing piece
-	 *            flip to other color
 	 */
 	private void flip(Pos current, Pos trap) {
+		
 		while (!(current.equals(trap))) {
+			//Create a new pos in dir of trap
 			current = new Pos(this.dirAcc(current.getX(), current.getY(),
 					trap.getDir()));
+			//Flip next piece in trap.dir
 			this.setSquare(current.getX(), current.getY(), this.getTurn());
 		}
 	}
 
+	/**
+	 * Determines if a valid move is available. If not do nothing.
+	 * If there is a valid move then find all the moves and
+	 * and flip the respective peices  
+	 * @param row
+	 * @param col
+	 */
 	public void move(int row, int col) {
+		//Check for valid move if so continue
 		if (this.validMove(row, col, this.getTurn())) {
+			//Place piece at row,col
 			this.setSquare(row, col, this.getTurn());
+			//Go through all 8 dirs and find traps then flip them
 			for (int i = 1; i < 9; i++) {
 				Pos current = new Pos(row, col, 0); // Current piece being
 													// placed on board
